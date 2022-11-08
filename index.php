@@ -1,15 +1,6 @@
 <?php
 
-//connect to database
-
-use LDAP\Result;
-
-$conn = mysqli_connect('localhost', 'Muwahib', 'Muwahib@521409', 'pizza');
-
-//check connection
-if (!$conn) {
-    echo 'connection error: ' . mysqli_connect_error();
-}
+include('config/db_connect.php');
 
 //write query fro all pizzas
 $sql = 'SELECT Title, Ingredients, ID FROM pizzas ORDER BY Create_at';
@@ -49,6 +40,7 @@ mysqli_close($conn);
         <?php foreach ($pizzas as $pizza): ?>
             <div class="col s6 md3">
                 <div class="card z-depth-0">
+                    <img src="img/pizza.svg" class="pizza">
                     <div class="card-content center">
                         <h6><?php echo htmlspecialchars($pizza['Title']); ?></h6>
                         <ul>
@@ -58,16 +50,16 @@ mysqli_close($conn);
                         </ul>
                     </div>
                     <div class="card-action right-align">
-                        <a href="#" class="brand-text">more info</a>
+                        <a href="details.php?ID=<?php echo $pizza['ID']?>" class="brand-text">more info</a>
                     </div>
                 </div>
             </div>
         <?php endforeach; ?>
 
         <?php if(count($pizzas) >= 3):?>
-            <p>there are 2 or more pizzas </p>
+            <!-- <p>there are 2 or more pizzas </p> -->
         <?php else: ?>
-            <p> there are less than 3 pizzas </p>
+            <!-- <p> there are less than 3 pizzas </p> -->
         <?php endif; ?>
 
     </div>
